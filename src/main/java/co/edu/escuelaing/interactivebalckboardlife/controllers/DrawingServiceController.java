@@ -5,12 +5,19 @@
  */
 package co.edu.escuelaing.interactivebalckboardlife.controllers;
 
+import org.springframework.beans.factory.annotation.Autowire;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import co.edu.escuelaing.interactivebalckboardlife.repositories.TicketRepository;
 
 
 @RestController
 public class DrawingServiceController {
+
+    @Autowired
+    TicketRepository ticketRepo;
     
     @GetMapping("/status")
     public String status() {
@@ -18,5 +25,10 @@ public class DrawingServiceController {
                 java.time.LocalDate.now() + ", " +
                 java.time.LocalTime.now() +
                 ". " + "The server is Runnig!\"}";
+    }
+
+    @GetMapping("/getticket")
+        public String getTicket() {
+        return "{\"ticket\":\"" + ticketRepo.getTicket() + "\"}";
     }
 }
